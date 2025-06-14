@@ -2,6 +2,8 @@
 
 This repository contains a Google Earth Engine (GEE) script for estimating annual soil loss using the Revised Universal Soil Loss Equation (RUSLE). The model integrates precipitation, soil characteristics, terrain features, vegetation cover, and land use practices. The script also computes class-wise area distribution and sub-basin-wise statistics. This specific implementation is applied to the **Umran basin of Meghalaya**, but you can modify the Area of Interest (AOI) to suit your own study region.
 
+🔗 **Direct link to use the code in Earth Engine**: [https://code.earthengine.google.com/1ca210a1be050cce6e1f3425a2a52a7e](https://code.earthengine.google.com/1ca210a1be050cce6e1f3425a2a52a7e)
+
 ## 📌 Model Equation
 
 The core equation used is the **RUSLE (Revised Universal Soil Loss Equation)**:
@@ -25,7 +27,7 @@ Where:
 
 ## 🌍 Study Area
 
-The area of interest (AOI) in this project is the **Umran basin of Meghalaya**, defined using HydroSHEDS Level 12 basin boundaries. You can change the `mainID` to extract different major river basins or upload your own shapefile or geometry.
+The area of interest (AOI) in this project is the **Umran basin of Meghalaya**, defined using HydroSHEDS Level 12 basin boundaries. You can change the `mainID` to extract different major river basins or upload your own shapefile or geometry for your own AOI.
 
 ```javascript
 var dataset = ee.FeatureCollection("WWF/HydroSHEDS/v1/Basins/hybas_12")
