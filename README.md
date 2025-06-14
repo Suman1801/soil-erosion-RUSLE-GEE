@@ -4,7 +4,7 @@ This repository contains a Google Earth Engine (GEE) script for estimating annua
 
 🔗 **Direct link to use the code in Earth Engine**: [https://code.earthengine.google.com/1ca210a1be050cce6e1f3425a2a52a7e](https://code.earthengine.google.com/1ca210a1be050cce6e1f3425a2a52a7e)
 
-## 📌 Model Equation
+##  Model Equation
 
 The core equation used is the **RUSLE (Revised Universal Soil Loss Equation)**:
 
@@ -25,7 +25,7 @@ Where:
 
 ---
 
-## 🌍 Study Area
+##  Study Area
 
 The area of interest (AOI) in this project is the **Umran basin of Meghalaya**, defined using HydroSHEDS Level 12 basin boundaries. You can change the `mainID` to extract different major river basins or upload your own shapefile or geometry for your own AOI.
 
@@ -37,7 +37,7 @@ var aoi = table;
 
 ---
 
-## 📈 R Factor: Rainfall Erosivity
+##  R Factor: Rainfall Erosivity
 
 Derived using CHIRPS precipitation data:
 
@@ -56,7 +56,7 @@ var R = ee.Image(current.multiply(0.363).add(79)).rename('R');
 
 ---
 
-## 🧪 K Factor: Soil Erodibility
+##  K Factor: Soil Erodibility
 
 Based on soil raster classification and a lookup formula for K values:
 
@@ -72,7 +72,7 @@ var K = soil.expression("(b('soil') > 11) ? 0.0053 : ... : 0").rename('K');
 
 ---
 
-## ⛰️ LS Factor: Slope Length and Steepness
+##  LS Factor: Slope Length and Steepness
 
 The LS factor is calculated as:
 
@@ -95,7 +95,7 @@ var LS = ((slope.multiply(0.53)).add(slope.pow(2).multiply(0.076)).add(0.76)).mu
 
 ---
 
-## 🌿 C Factor: Vegetative Cover
+##  C Factor: Vegetative Cover
 
 Based on NDVI (from Sentinel-2):
 
@@ -115,7 +115,7 @@ var C = (C1.divide(ee.Image(1).subtract(image_ndvi))).exp().normalize().rename('
 
 ---
 
-## 🚜 P Factor: Land Use Management
+##  P Factor: Land Use Management
 
 P is assigned based on LULC class and slope as per FAO recommendations:
 
@@ -131,7 +131,7 @@ var P = lulc_slope.expression("(b('lulc') < 11) ? 0.8 : ... : 1").rename('P');
 
 ---
 
-## 🧼 Soil Loss Computation
+##  Soil Loss Computation
 
 Once all factors are derived, final soil loss is computed as:
 
@@ -145,7 +145,7 @@ var soil_loss = ee.Image(R.multiply(K).multiply(LS).multiply(C).multiply(P)).ren
 
 ---
 
-## 📊 Output
+##  Output
 
 * **Soil Loss Map** with visual classification
 * **Pie chart** for erosion class distribution
@@ -154,33 +154,33 @@ var soil_loss = ee.Image(R.multiply(K).multiply(LS).multiply(C).multiply(P)).ren
 
 ---
 
-## 📄 Export
+##  Export
 
 Results can be exported to Google Drive as CSV files using `Export.table.toDrive` for class-wise and sub-basin-wise summaries.
 
 ---
 
-## 🧐 Notes
+##  Notes
 
 * All calculations are scale-dependent; use appropriate spatial resolution (\~500 m).
 * Modify parameters (e.g., slope length, alpha-beta for NDVI-to-C conversion) to match regional characteristics.
 
 ---
 
-## 📁 Files
+##  Files
 
 * `soil_loss_model.js`: Full GEE script implementing the RUSLE workflow
 * `README.md`: This documentation
 
 ---
 
-## 📧 Contact
+##  Contact
 
 For questions or collaboration, connect with [Suman Bhowmick](https://github.com/Suman1801).
 
 ---
 
-## 📜 License
+##  License
 
 MIT License — you are free to use, share, and modify with attribution.
 
